@@ -1,0 +1,58 @@
+# 注意 ：1、 数据库与redis配置待完善，需配为你设置的url，username与 password； 2、包日志配置时，需改为你的项目包名称；3、其他配置 请根据你的需要做添加与修改。
+
+# 第一步：配端口 8080
+server:
+  port: 8080 # 端口
+  servlet:
+    context-path: /   # 应用程序上下文路径
+    session:
+      timeout: 3600  # 配置会话（session）超时时间，单元秒
+# 第二步：设置环境与 配数据库
+spring:
+  profiles:
+    active: local  # 设置环境（local-本地；test-测试；produce-生产）
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8.x 版本中，驱动程序的类名被更改为 com.mysql.cj.jdbc.Driver
+    hikari: # Hikari 连接池的配置
+      minimum-idle: 15  # 连接池中保持的最小空闲连接数
+      maximum-pool-size: 25 # 连接池的最大连接数
+      idle-timeout: 400000  # 连接在连接池中保持空闲的最大时间（单位为毫秒），超过该时间会被释放
+      max-lifetime: 580000 # 连接在连接池中的最大生命周期（单位为毫秒），超过该时间会被释放
+      connection-timeout: 65000 # 获取连接的超时时间（单位为毫秒）
+      connection-test-query: SELECT 1 # 用于测试连接是否有效的 SQL 查询语句
+# 第三步：配mybatis 或 mybatis plus配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*Mapper.xml  # 指定了 Mapper XML 文件所在的位置。classpath:mapper/*Mapper.xml 表示在类路径下的 "mapper" 目录中查找以 "Mapper.xml" 结尾的文件
+  configuration:
+    lazy-loading-enabled: true # 开启懒加载，当需要使用某个关联对象时才会进行查询加载
+    map-underscore-to-camel-case: true # 开启下划线到驼峰命名的自动映射转换
+  global-config:
+    db-config:
+      id-type: auto  # 主键 ID 策略，auto 表示自动增长
+---
+# 第四步：配 本地环境
+spring:
+  config:
+    activate:
+      on-profile: local
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/demo?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+  # Redis配置
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    pool:
+      max-wait: 1600 # 当连接池耗尽时，调用者在等待可用连接时的最大等待时间（单位为毫秒
+      max-active: 40 # 连接池中的最大活动连接数
+      max-idle: 20 # 连接池中的最大空闲连接数
+      min-idle: 0 # 连接池中的最小空闲连接数
+    database: 0 # Redis数据库的索引，默认为0（用于区分不同的数据集）
+# 日志级别  TRACE、DEBUG、INFO、WARN 和 ERROR
+logging:
+  level:
+    root: ERROR # 根日志记录器的级别，这里设置为 ERROR，表示只记录错误日志信息
+    com.lck.mypackage: DEBUG # 包日志记录器，这里设置为 DEBUG，表示记录 DEBUG 级别的日志信息
