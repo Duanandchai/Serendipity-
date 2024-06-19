@@ -1,14 +1,14 @@
-﻿package com.duan.util;
+package com.duan.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JwtUtil {
-
+public class JwtUtils {
     public static String getJwt(int id,String username){
         //获取jwt生成器
         JWTCreator.Builder jwtBuilder = JWT.create();
