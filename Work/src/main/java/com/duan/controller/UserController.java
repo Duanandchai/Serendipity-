@@ -17,4 +17,5 @@ public class UserController {
     public AjaxResult Login(String username, String password){
         return userService.login(username,password);
     }
+
 }
