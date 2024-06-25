@@ -2,6 +2,7 @@ package com.duan.interceptor;
 
 import com.auth0.jwt.interfaces.Claim;
 import com.duan.util.JwtUtils;
+import com.duan.util.ThreadLocalUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Component
-public class LoginIntercepote implements HandlerInterceptor {
+public class LoginIntercepoter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //1,先获取请求头
@@ -26,9 +27,11 @@ public class LoginIntercepote implements HandlerInterceptor {
         try {
             Map<String, Claim> verify = JwtUtils.verify(token);
             if(verify!=null){
-                String id = String.valueOf(verify.get("id"));
+                String userId = String.valueOf(verify.get("id"));
                 String username = String.valueOf(verify.get("username"));
-                //todo id和username存到全局变量，之后的操作需要
+                //id和username存到全局变量，之后的操作需要
+                ThreadLocalUtil.set("id",userId);
+                ThreadLocalUtil.set("username",username);
             }
 
         }  catch (Exception e)  {
