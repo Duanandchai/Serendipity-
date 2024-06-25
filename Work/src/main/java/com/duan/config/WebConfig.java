@@ -1,6 +1,6 @@
 package com.duan.config;
 
-import com.duan.interceptor.LoginIntercepote;
+import com.duan.interceptor.LoginIntercepoter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Autowired
-    private LoginIntercepote loginCheckInterceptor;
+    private LoginIntercepoter loginCheckInterceptor;
  
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

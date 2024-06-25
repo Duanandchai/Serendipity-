@@ -2,7 +2,7 @@
 
 # 第一步：配端口 8080
 server:
-  port: 8080 # 端口
+  port: 8088 # 端口
   servlet:
     context-path: /   # 应用程序上下文路径
     session:
@@ -56,3 +56,14 @@ logging:
   level:
     root: ERROR # 根日志记录器的级别，这里设置为 ERROR，表示只记录错误日志信息
     com.lck.mypackage: DEBUG # 包日志记录器，这里设置为 DEBUG，表示记录 DEBUG 级别的日志信息
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:8087/xxl-job-admin #xxljob调度中心部署  例如：http://127.0.0.1:8080/xxl-job-admin
+    executor:
+      appname: duan-demo #xxljob配置的执行器名称，
+      ip:           #执行器IP，默认为空表示自动获取IP
+      port: 9999 #xxljob配置的端口号，默认为9999
+      logpath: /data/xxl-job/jobhandler  #执行器运行日志文件存储磁盘路径
+      logretentiondays: -1  #调度中心日志表数据保存天数，过期日志自动清理；限制大于等于7时生效，否则, 如-1，关闭自动清理功能
+    accessToken: default_token #调度中心通讯TOKEN [选填]：非空时启用
