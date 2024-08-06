@@ -21,10 +21,11 @@ public class UserController {
     }
 
     @GetMapping("/a")
-    public String test(){
+    public AjaxResult test(){
+        System.out.println("该方法被调用了");
         String username = ThreadLocalUtil.get("username");
-        String userId = ThreadLocalUtil.get("id");
-        return username+userId;
+        String userId = ThreadLocalUtil.get("userId");
+        return AjaxResult.success(username+userId+"===========");
     }
 
 }

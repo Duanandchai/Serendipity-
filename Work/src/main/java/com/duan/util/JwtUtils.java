@@ -63,7 +63,7 @@ public class JwtUtils {
     }
 
     public static void main(String[] args) {
-        Map<String, Claim> verify = verify("eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1ZXIiLCJleHAiOjE3MTg5MzQ1ODIsInVzZXJJZCI6MSwiaWF0IjoxNzE4ODQ4MTgyLCJ1c2VybmFtZSI6InpoYW5nc2FuIn0.2TTm7UKGaho4CSXZekHv2bPTY70Aydr-bWJThymAOGs");
+        Map<String, Claim> verify = verify("eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1ZXIiLCJleHAiOjE3MjMwMjI5MDcsInVzZXJJZCI6MSwiaWF0IjoxNzIyOTM2NTA3LCJ1c2VybmFtZSI6InpoYW5nc2FuIn0.uiaBraSWkss78SppG5qqf5fJIekZf-8D2kDffuKoadI");
         System.out.println(verify);
     }
 }

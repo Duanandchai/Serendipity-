@@ -19,7 +19,7 @@ public class LoginIntercepoter implements HandlerInterceptor {
         String token = request.getHeader("token");
         response.setContentType("application/json;charset = UTF-8");
         //2,判断请求头是否存在
-        if (token == null || "".equals(token)){
+        if (token == null || token.isEmpty()){
             //请求头不存在或者请求头为空
             return false;
         }
@@ -27,10 +27,10 @@ public class LoginIntercepoter implements HandlerInterceptor {
         try {
             Map<String, Claim> verify = JwtUtils.verify(token);
             if(verify!=null){
-                String userId = String.valueOf(verify.get("id"));
+                String userId = String.valueOf(verify.get("userId"));
                 String username = String.valueOf(verify.get("username"));
                 //id和username存到全局变量，之后的操作需要
-                ThreadLocalUtil.set("id",userId);
+                ThreadLocalUtil.set("userId",userId);
                 ThreadLocalUtil.set("username",username);
             }
 
